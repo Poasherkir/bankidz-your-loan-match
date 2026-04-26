@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { Download, Loader2 } from "lucide-react";
 import { PageShell } from "@/components/BottomNav";
 import { BANKS, formatDA, monthlyPayment } from "@/lib/banks";
 import { useInputs } from "@/lib/store";
@@ -9,10 +11,21 @@ export const Route = createFileRoute("/simulator")({
 
 function SimulatorPage() {
   const [inputs, setInputs] = useInputs();
+  const [exporting, setExporting] = useState(false);
   const rate = inputs.rate ?? 6.5;
   const monthly = monthlyPayment(inputs.amount, rate, inputs.years);
   const total = monthly * inputs.years * 12;
   const interest = total - inputs.amount;
+
+  const exportPdf = async () => {
+    setExporting(true);
+    try {
+      const { generateReport } = await import("@/lib/pdf-report");
+      generateReport({ ...inputs, rate });
+    } finally {
+      setExporting(false);
+    }
+  };
 
   return (
     <PageShell>
@@ -100,6 +113,19 @@ function SimulatorPage() {
             </div>
           </div>
         </div>
+
+        {/* Export PDF */}
+        <button
+          onClick={exportPdf}
+          disabled={exporting}
+          className="w-full py-4 rounded-2xl glass border-2 border-gold flex items-center justify-center gap-2 font-bold gold-text active:scale-[0.98] transition-transform disabled:opacity-60"
+        >
+          {exporting ? (
+            <><Loader2 className="h-5 w-5 animate-spin" /> جاري التحضير...</>
+          ) : (
+            <><Download className="h-5 w-5" /> تحميل التقرير PDF</>
+          )}
+        </button>
       </div>
     </PageShell>
   );
