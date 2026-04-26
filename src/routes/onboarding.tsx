@@ -73,7 +73,7 @@ function Onboarding() {
           className="w-full py-4 rounded-2xl gradient-gold text-gold-foreground font-bold flex items-center justify-center gap-2 shadow-[var(--shadow-gold)] active:scale-[0.98] transition-transform"
         >
           {step === total ? "اعرض النتائج" : "التالي"}
-          <ArrowLeft className="h-5 w-5" />
+          <ArrowLeft className="h-5 w-5 rotate-180" />
         </button>
       </div>
     </div>
