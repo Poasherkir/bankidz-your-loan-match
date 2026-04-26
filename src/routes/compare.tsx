@@ -44,7 +44,10 @@ function ComparePage() {
                     <Sparkles className="h-3 w-3" />
                     الأنسب لك
                   </span>
-                  <span className="px-2.5 py-1 rounded-full bg-emerald-500 text-white text-[10px] font-bold shadow-md">
+                  <span
+                    className="px-2.5 py-1 rounded-full text-white text-[10px] font-bold shadow-md"
+                    style={{ backgroundColor: "oklch(0.65 0.17 155)" }}
+                  >
                     Best Match
                   </span>
                 </div>
