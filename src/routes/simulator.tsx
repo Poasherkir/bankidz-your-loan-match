@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Download, Loader2 } from "lucide-react";
+import { Download, Loader2, Share2, Check } from "lucide-react";
 import { PageShell } from "@/components/BottomNav";
 import { BANKS, formatDA, monthlyPayment } from "@/lib/banks";
 import { useInputs } from "@/lib/store";
@@ -12,6 +12,7 @@ export const Route = createFileRoute("/simulator")({
 function SimulatorPage() {
   const [inputs, setInputs] = useInputs();
   const [exporting, setExporting] = useState(false);
+  const [shared, setShared] = useState(false);
   const rate = inputs.rate ?? 6.5;
   const monthly = monthlyPayment(inputs.amount, rate, inputs.years);
   const total = monthly * inputs.years * 12;
@@ -24,6 +25,21 @@ function SimulatorPage() {
       generateReport({ ...inputs, rate });
     } finally {
       setExporting(false);
+    }
+  };
+
+  const shareResult = async () => {
+    const text = `محاكاة قرض BankiDZ\n\nالمبلغ: ${formatDA(inputs.amount)}\nالمدة: ${inputs.years} سنة\nالفائدة: ${rate}%\n\nالقسط الشهري: ${formatDA(monthly)}\nإجمالي السداد: ${formatDA(total)}\nإجمالي الفوائد: ${formatDA(interest)}`;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: "محاكاة قرض BankiDZ", text });
+      } else {
+        await navigator.clipboard.writeText(text);
+        setShared(true);
+        setTimeout(() => setShared(false), 2000);
+      }
+    } catch {
+      /* user cancelled */
     }
   };
 
@@ -60,9 +76,10 @@ function SimulatorPage() {
             max={25}
             value={inputs.years}
             onChange={(e) => setInputs({ years: Number(e.target.value) })}
+            dir="ltr"
             className="w-full accent-[var(--gold)]"
           />
-          <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
+          <div dir="ltr" className="flex justify-between text-[10px] text-muted-foreground mt-1">
             <span>1</span><span>25</span>
           </div>
         </div>
@@ -114,18 +131,35 @@ function SimulatorPage() {
           </div>
         </div>
 
-        {/* Export PDF */}
-        <button
-          onClick={exportPdf}
-          disabled={exporting}
-          className="w-full py-4 rounded-2xl glass border-2 border-gold flex items-center justify-center gap-2 font-bold gold-text active:scale-[0.98] transition-transform disabled:opacity-60"
-        >
-          {exporting ? (
-            <><Loader2 className="h-5 w-5 animate-spin" /> جاري التحضير...</>
-          ) : (
-            <><Download className="h-5 w-5" /> تحميل التقرير PDF</>
-          )}
-        </button>
+        {/* Disclaimer */}
+        <p className="text-[11px] text-muted-foreground text-center leading-relaxed px-2">
+          هذه الأرقام تقديرية فقط، يرجى مراجعة البنك للحصول على عرض رسمي
+        </p>
+
+        {/* Actions */}
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            onClick={shareResult}
+            className="py-4 rounded-2xl glass border-2 border-border flex items-center justify-center gap-2 font-bold text-sm active:scale-[0.98] transition-transform"
+          >
+            {shared ? (
+              <><Check className="h-5 w-5 text-gold" /> تم النسخ</>
+            ) : (
+              <><Share2 className="h-5 w-5" /> مشاركة</>
+            )}
+          </button>
+          <button
+            onClick={exportPdf}
+            disabled={exporting}
+            className="py-4 rounded-2xl glass border-2 border-gold flex items-center justify-center gap-2 font-bold text-sm gold-text active:scale-[0.98] transition-transform disabled:opacity-60"
+          >
+            {exporting ? (
+              <><Loader2 className="h-5 w-5 animate-spin" /> ...</>
+            ) : (
+              <><Download className="h-5 w-5" /> PDF</>
+            )}
+          </button>
+        </div>
       </div>
     </PageShell>
   );

@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Building2, Wallet, CalendarCheck } from "lucide-react";
+import { ArrowRight, Building2, Wallet, CalendarCheck, Settings } from "lucide-react";
 import { PageShell } from "@/components/BottomNav";
 import { BANKS, LOAN_TYPES } from "@/lib/banks";
 
@@ -24,16 +24,20 @@ function HomePage() {
     <PageShell>
       <div className="px-5 pt-12 pb-6">
         {/* Logo */}
-        <div className="flex items-center gap-3 mb-10">
-          <div className="h-12 w-12 rounded-2xl gradient-gold flex items-center justify-center shadow-[var(--shadow-gold)]">
-            <span className="font-display font-extrabold text-gold-foreground text-lg">B</span>
-          </div>
+        <div className="flex items-center justify-between mb-10">
           <div>
             <div className="font-display text-xl font-extrabold tracking-tight">
               Banki<span className="gold-text">DZ</span>
             </div>
             <div className="text-[11px] text-muted-foreground">دليل القروض الجزائرية</div>
           </div>
+          <button
+            type="button"
+            aria-label="الإعدادات"
+            className="h-10 w-10 rounded-full glass flex items-center justify-center active:scale-95 transition-transform"
+          >
+            <Settings className="h-5 w-5 text-muted-foreground" />
+          </button>
         </div>
 
         {/* Hero */}
@@ -55,7 +59,7 @@ function HomePage() {
               className="group inline-flex items-center justify-center gap-2 w-full py-4 rounded-2xl gradient-gold text-gold-foreground font-bold text-base shadow-[var(--shadow-gold)] active:scale-[0.98] transition-transform"
             >
               ابدأ الآن
-              <ArrowLeft className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
+              <ArrowRight className="h-5 w-5 rotate-180 transition-transform group-hover:-translate-x-1" />
             </Link>
           </div>
         </div>

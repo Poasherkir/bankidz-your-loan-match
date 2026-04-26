@@ -39,9 +39,17 @@ function ComparePage() {
               }`}
             >
               {isBest && (
-                <div className="absolute -top-2.5 right-4 px-3 py-1 rounded-full gradient-gold text-gold-foreground text-[10px] font-bold flex items-center gap-1">
-                  <Sparkles className="h-3 w-3" />
-                  الأنسب لك
+                <div className="absolute -top-2.5 right-4 flex items-center gap-1.5">
+                  <span className="px-3 py-1 rounded-full gradient-gold text-gold-foreground text-[10px] font-bold flex items-center gap-1">
+                    <Sparkles className="h-3 w-3" />
+                    الأنسب لك
+                  </span>
+                  <span
+                    className="px-2.5 py-1 rounded-full text-white text-[10px] font-bold shadow-md"
+                    style={{ backgroundColor: "oklch(0.65 0.17 155)" }}
+                  >
+                    Best Match
+                  </span>
                 </div>
               )}
               <div className="flex items-center gap-3">
