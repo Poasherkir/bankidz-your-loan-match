@@ -1,10 +1,11 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { Home, GitCompare, Calculator, FileText } from "lucide-react";
+import { Home, GitCompare, Calculator, FileText, MapPin } from "lucide-react";
 
 const tabs = [
   { to: "/", label: "الرئيسية", icon: Home, exact: true },
   { to: "/compare", label: "مقارنة", icon: GitCompare, exact: false },
   { to: "/simulator", label: "محاكي", icon: Calculator, exact: false },
+  { to: "/branches", label: "الفروع", icon: MapPin, exact: false },
   { to: "/documents", label: "وثائق", icon: FileText, exact: false },
 ] as const;
 
