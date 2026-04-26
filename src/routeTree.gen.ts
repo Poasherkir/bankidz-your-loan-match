@@ -9,38 +9,135 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SimulatorRouteImport } from './routes/simulator'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as DocumentsRouteImport } from './routes/documents'
+import { Route as CompareRouteImport } from './routes/compare'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BankBankIdRouteImport } from './routes/bank.$bankId'
 
+const SimulatorRoute = SimulatorRouteImport.update({
+  id: '/simulator',
+  path: '/simulator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsRoute = DocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompareRoute = CompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BankBankIdRoute = BankBankIdRouteImport.update({
+  id: '/bank/$bankId',
+  path: '/bank/$bankId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/compare': typeof CompareRoute
+  '/documents': typeof DocumentsRoute
+  '/onboarding': typeof OnboardingRoute
+  '/simulator': typeof SimulatorRoute
+  '/bank/$bankId': typeof BankBankIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/compare': typeof CompareRoute
+  '/documents': typeof DocumentsRoute
+  '/onboarding': typeof OnboardingRoute
+  '/simulator': typeof SimulatorRoute
+  '/bank/$bankId': typeof BankBankIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/compare': typeof CompareRoute
+  '/documents': typeof DocumentsRoute
+  '/onboarding': typeof OnboardingRoute
+  '/simulator': typeof SimulatorRoute
+  '/bank/$bankId': typeof BankBankIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/compare'
+    | '/documents'
+    | '/onboarding'
+    | '/simulator'
+    | '/bank/$bankId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/compare'
+    | '/documents'
+    | '/onboarding'
+    | '/simulator'
+    | '/bank/$bankId'
+  id:
+    | '__root__'
+    | '/'
+    | '/compare'
+    | '/documents'
+    | '/onboarding'
+    | '/simulator'
+    | '/bank/$bankId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CompareRoute: typeof CompareRoute
+  DocumentsRoute: typeof DocumentsRoute
+  OnboardingRoute: typeof OnboardingRoute
+  SimulatorRoute: typeof SimulatorRoute
+  BankBankIdRoute: typeof BankBankIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/simulator': {
+      id: '/simulator'
+      path: '/simulator'
+      fullPath: '/simulator'
+      preLoaderRoute: typeof SimulatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents': {
+      id: '/documents'
+      path: '/documents'
+      fullPath: '/documents'
+      preLoaderRoute: typeof DocumentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare': {
+      id: '/compare'
+      path: '/compare'
+      fullPath: '/compare'
+      preLoaderRoute: typeof CompareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +145,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bank/$bankId': {
+      id: '/bank/$bankId'
+      path: '/bank/$bankId'
+      fullPath: '/bank/$bankId'
+      preLoaderRoute: typeof BankBankIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CompareRoute: CompareRoute,
+  DocumentsRoute: DocumentsRoute,
+  OnboardingRoute: OnboardingRoute,
+  SimulatorRoute: SimulatorRoute,
+  BankBankIdRoute: BankBankIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
