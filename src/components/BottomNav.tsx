@@ -13,7 +13,7 @@ export function BottomNav() {
   const { pathname } = useLocation();
   return (
     <nav className="fixed bottom-0 inset-x-0 z-40 glass border-t border-border">
-      <div className="mx-auto max-w-md grid grid-cols-4 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+      <div className="mx-auto max-w-md grid grid-cols-5 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
         {tabs.map(({ to, label, icon: Icon, exact }) => {
           const active = exact ? pathname === to : pathname.startsWith(to);
           return (
