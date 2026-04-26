@@ -22,7 +22,7 @@ export const Route = createFileRoute("/bank/$bankId")({
 });
 
 function BankDetail() {
-  const { bank } = Route.useLoaderData();
+  const { bank } = Route.useLoaderData() as { bank: (typeof BANKS)[number] };
   const [inputs] = useInputs();
   const product = bank.products.find((p) => p.loanType === inputs.loanType) ?? bank.products[0];
   const loanLabel = LOAN_TYPES.find((l) => l.id === product.loanType)?.label;
