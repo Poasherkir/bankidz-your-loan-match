@@ -1,10 +1,11 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { Home, GitCompare, Calculator, FileText } from "lucide-react";
+import { Home, GitCompare, Calculator, FileText, MapPin } from "lucide-react";
 
 const tabs = [
   { to: "/", label: "الرئيسية", icon: Home, exact: true },
   { to: "/compare", label: "مقارنة", icon: GitCompare, exact: false },
   { to: "/simulator", label: "محاكي", icon: Calculator, exact: false },
+  { to: "/branches", label: "الفروع", icon: MapPin, exact: false },
   { to: "/documents", label: "وثائق", icon: FileText, exact: false },
 ] as const;
 
@@ -12,7 +13,7 @@ export function BottomNav() {
   const { pathname } = useLocation();
   return (
     <nav className="fixed bottom-0 inset-x-0 z-40 glass border-t border-border">
-      <div className="mx-auto max-w-md grid grid-cols-4 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+      <div className="mx-auto max-w-md grid grid-cols-5 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
         {tabs.map(({ to, label, icon: Icon, exact }) => {
           const active = exact ? pathname === to : pathname.startsWith(to);
           return (

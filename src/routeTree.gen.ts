@@ -13,6 +13,7 @@ import { Route as SimulatorRouteImport } from './routes/simulator'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as CompareRouteImport } from './routes/compare'
+import { Route as BranchesRouteImport } from './routes/branches'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BankBankIdRouteImport } from './routes/bank.$bankId'
 
@@ -36,6 +37,11 @@ const CompareRoute = CompareRouteImport.update({
   path: '/compare',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BranchesRoute = BranchesRouteImport.update({
+  id: '/branches',
+  path: '/branches',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -49,6 +55,7 @@ const BankBankIdRoute = BankBankIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/branches': typeof BranchesRoute
   '/compare': typeof CompareRoute
   '/documents': typeof DocumentsRoute
   '/onboarding': typeof OnboardingRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/branches': typeof BranchesRoute
   '/compare': typeof CompareRoute
   '/documents': typeof DocumentsRoute
   '/onboarding': typeof OnboardingRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/branches': typeof BranchesRoute
   '/compare': typeof CompareRoute
   '/documents': typeof DocumentsRoute
   '/onboarding': typeof OnboardingRoute
@@ -76,6 +85,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/branches'
     | '/compare'
     | '/documents'
     | '/onboarding'
@@ -84,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/branches'
     | '/compare'
     | '/documents'
     | '/onboarding'
@@ -92,6 +103,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/branches'
     | '/compare'
     | '/documents'
     | '/onboarding'
@@ -101,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BranchesRoute: typeof BranchesRoute
   CompareRoute: typeof CompareRoute
   DocumentsRoute: typeof DocumentsRoute
   OnboardingRoute: typeof OnboardingRoute
@@ -138,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompareRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/branches': {
+      id: '/branches'
+      path: '/branches'
+      fullPath: '/branches'
+      preLoaderRoute: typeof BranchesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -157,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BranchesRoute: BranchesRoute,
   CompareRoute: CompareRoute,
   DocumentsRoute: DocumentsRoute,
   OnboardingRoute: OnboardingRoute,
