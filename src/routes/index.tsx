@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Building2, Wallet, CalendarCheck, Settings } from "lucide-react";
 import { PageShell } from "@/components/BottomNav";
+import { CurrencyWidget, TipCard } from "@/components/HomeWidgets";
 import { BANKS, LOAN_TYPES } from "@/lib/banks";
 
 export const Route = createFileRoute("/")({
@@ -64,11 +65,21 @@ function HomePage() {
           </div>
         </div>
 
+        {/* Tip of the day */}
+        <div className="mb-4">
+          <TipCard />
+        </div>
+
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-3 mb-8">
+        <div className="grid grid-cols-3 gap-3 mb-6">
           <StatCard icon={Building2} value={`${BANKS.length}+`} label="بنك جزائري" />
           <StatCard icon={Wallet} value={`${LOAN_TYPES.length}`} label="أنواع القروض" />
           <StatCard icon={CalendarCheck} value="2026" label="بيانات محدّثة" />
+        </div>
+
+        {/* Currency widget */}
+        <div className="mb-6">
+          <CurrencyWidget />
         </div>
 
         {/* Quick links */}
