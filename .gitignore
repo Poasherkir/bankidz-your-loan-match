@@ -20,11 +20,6 @@ dist-ssr
 .wrangler/
 .dev.vars
 
-# Android (Capacitor)
-android/
-*.apk
-*.aab
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
