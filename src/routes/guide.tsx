@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft } from "lucide-react";
+import { useState } from "react";
+import { ChevronDown, ChevronLeft } from "lucide-react";
 import { PageShell } from "@/components/BottomNav";
 import { GUIDE_CATEGORIES } from "@/lib/guide";
+import { FAQ } from "@/lib/finance-data";
 
 export const Route = createFileRoute("/guide")({
   component: GuideIndex,
