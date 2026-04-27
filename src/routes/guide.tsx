@@ -45,6 +45,12 @@ function GuideIndex() {
           ))}
         </div>
 
+        {/* FAQ */}
+        <div className="mt-8">
+          <h2 className="font-display text-lg font-extrabold mb-3">أسئلة شائعة</h2>
+          <FaqAccordion />
+        </div>
+
         <div className="mt-6 glass rounded-2xl p-4 text-center">
           <p className="text-[11px] text-muted-foreground leading-relaxed">
             المعلومات المعروضة هنا للاطلاع فقط. يرجى التأكد من الشروط الرسمية لدى البنوك والوكالات المعنية.
@@ -52,5 +58,34 @@ function GuideIndex() {
         </div>
       </div>
     </PageShell>
+  );
+}
+
+function FaqAccordion() {
+  const [open, setOpen] = useState<number | null>(0);
+  return (
+    <div className="space-y-2">
+      {FAQ.map((item, i) => {
+        const isOpen = open === i;
+        return (
+          <div key={i} className="glass rounded-2xl overflow-hidden">
+            <button
+              onClick={() => setOpen(isOpen ? null : i)}
+              className="w-full p-4 flex items-center justify-between gap-3 text-right active:bg-gold-soft/40 transition-colors"
+            >
+              <span className="text-sm font-bold flex-1 leading-relaxed">{item.q}</span>
+              <ChevronDown
+                className={`h-4 w-4 text-gold shrink-0 transition-transform ${isOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+            {isOpen && (
+              <div className="px-4 pb-4 -mt-1 text-sm text-muted-foreground leading-relaxed border-t border-border pt-3">
+                {item.a}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
   );
 }
