@@ -1,7 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowRight, Check, X, Calculator } from "lucide-react";
+import { ArrowRight, Check, X, Calculator, Phone, Clock, MapPin } from "lucide-react";
 import { BankLogo } from "@/components/BankLogo";
 import { BANKS, formatDA, LOAN_TYPES, monthlyPayment } from "@/lib/banks";
+import { BANK_CONTACTS } from "@/lib/bank-contacts";
 import { useInputs, setInputs } from "@/lib/store";
 
 export const Route = createFileRoute("/bank/$bankId")({
@@ -100,6 +101,45 @@ function BankDetail() {
             ))}
           </ul>
         </Section>
+
+        {/* Contacts */}
+        {(() => {
+          const contact = BANK_CONTACTS[bank.id];
+          if (!contact) return null;
+          return (
+            <Section title="معلومات الاتصال والفروع">
+              <div className="space-y-2.5 mb-3">
+                <div className="flex items-start gap-2 text-sm">
+                  <Phone className="h-4 w-4 text-gold shrink-0 mt-0.5" />
+                  <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="font-bold gold-text" dir="ltr">
+                    {contact.phone}
+                  </a>
+                </div>
+                <div className="flex items-start gap-2 text-sm">
+                  <Clock className="h-4 w-4 text-gold shrink-0 mt-0.5" />
+                  <span>{contact.hours}</span>
+                </div>
+                <div className="flex items-start gap-2 text-sm">
+                  <MapPin className="h-4 w-4 text-gold shrink-0 mt-0.5" />
+                  <span className="text-muted-foreground">{contact.hq}</span>
+                </div>
+              </div>
+              <div className="border-t border-border pt-3">
+                <div className="text-[11px] text-muted-foreground mb-2">الفروع الرئيسية</div>
+                <ul className="space-y-2">
+                  {contact.branches.map((b) => (
+                    <li key={b.city} className="flex items-start gap-2 text-sm">
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-gold-soft text-gold font-bold shrink-0 mt-0.5">
+                        {b.city}
+                      </span>
+                      <span className="text-xs text-muted-foreground leading-relaxed">{b.address}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Section>
+          );
+        })()}
 
         <Link
           to="/simulator"
