@@ -11,10 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SimulatorRouteImport } from './routes/simulator'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as GuideRouteImport } from './routes/guide'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as BranchesRouteImport } from './routes/branches'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GuideCategoryRouteImport } from './routes/guide.$category'
 import { Route as BankBankIdRouteImport } from './routes/bank.$bankId'
 
 const SimulatorRoute = SimulatorRouteImport.update({
@@ -25,6 +27,11 @@ const SimulatorRoute = SimulatorRouteImport.update({
 const OnboardingRoute = OnboardingRouteImport.update({
   id: '/onboarding',
   path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuideRoute = GuideRouteImport.update({
+  id: '/guide',
+  path: '/guide',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DocumentsRoute = DocumentsRouteImport.update({
@@ -47,6 +54,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuideCategoryRoute = GuideCategoryRouteImport.update({
+  id: '/$category',
+  path: '/$category',
+  getParentRoute: () => GuideRoute,
+} as any)
 const BankBankIdRoute = BankBankIdRouteImport.update({
   id: '/bank/$bankId',
   path: '/bank/$bankId',
@@ -58,18 +70,22 @@ export interface FileRoutesByFullPath {
   '/branches': typeof BranchesRoute
   '/compare': typeof CompareRoute
   '/documents': typeof DocumentsRoute
+  '/guide': typeof GuideRouteWithChildren
   '/onboarding': typeof OnboardingRoute
   '/simulator': typeof SimulatorRoute
   '/bank/$bankId': typeof BankBankIdRoute
+  '/guide/$category': typeof GuideCategoryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/branches': typeof BranchesRoute
   '/compare': typeof CompareRoute
   '/documents': typeof DocumentsRoute
+  '/guide': typeof GuideRouteWithChildren
   '/onboarding': typeof OnboardingRoute
   '/simulator': typeof SimulatorRoute
   '/bank/$bankId': typeof BankBankIdRoute
+  '/guide/$category': typeof GuideCategoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -77,9 +93,11 @@ export interface FileRoutesById {
   '/branches': typeof BranchesRoute
   '/compare': typeof CompareRoute
   '/documents': typeof DocumentsRoute
+  '/guide': typeof GuideRouteWithChildren
   '/onboarding': typeof OnboardingRoute
   '/simulator': typeof SimulatorRoute
   '/bank/$bankId': typeof BankBankIdRoute
+  '/guide/$category': typeof GuideCategoryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -88,27 +106,33 @@ export interface FileRouteTypes {
     | '/branches'
     | '/compare'
     | '/documents'
+    | '/guide'
     | '/onboarding'
     | '/simulator'
     | '/bank/$bankId'
+    | '/guide/$category'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/branches'
     | '/compare'
     | '/documents'
+    | '/guide'
     | '/onboarding'
     | '/simulator'
     | '/bank/$bankId'
+    | '/guide/$category'
   id:
     | '__root__'
     | '/'
     | '/branches'
     | '/compare'
     | '/documents'
+    | '/guide'
     | '/onboarding'
     | '/simulator'
     | '/bank/$bankId'
+    | '/guide/$category'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -116,6 +140,7 @@ export interface RootRouteChildren {
   BranchesRoute: typeof BranchesRoute
   CompareRoute: typeof CompareRoute
   DocumentsRoute: typeof DocumentsRoute
+  GuideRoute: typeof GuideRouteWithChildren
   OnboardingRoute: typeof OnboardingRoute
   SimulatorRoute: typeof SimulatorRoute
   BankBankIdRoute: typeof BankBankIdRoute
@@ -135,6 +160,13 @@ declare module '@tanstack/react-router' {
       path: '/onboarding'
       fullPath: '/onboarding'
       preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guide': {
+      id: '/guide'
+      path: '/guide'
+      fullPath: '/guide'
+      preLoaderRoute: typeof GuideRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/documents': {
@@ -165,6 +197,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guide/$category': {
+      id: '/guide/$category'
+      path: '/$category'
+      fullPath: '/guide/$category'
+      preLoaderRoute: typeof GuideCategoryRouteImport
+      parentRoute: typeof GuideRoute
+    }
     '/bank/$bankId': {
       id: '/bank/$bankId'
       path: '/bank/$bankId'
@@ -175,11 +214,22 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface GuideRouteChildren {
+  GuideCategoryRoute: typeof GuideCategoryRoute
+}
+
+const GuideRouteChildren: GuideRouteChildren = {
+  GuideCategoryRoute: GuideCategoryRoute,
+}
+
+const GuideRouteWithChildren = GuideRoute._addFileChildren(GuideRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BranchesRoute: BranchesRoute,
   CompareRoute: CompareRoute,
   DocumentsRoute: DocumentsRoute,
+  GuideRoute: GuideRouteWithChildren,
   OnboardingRoute: OnboardingRoute,
   SimulatorRoute: SimulatorRoute,
   BankBankIdRoute: BankBankIdRoute,
@@ -187,3 +237,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
