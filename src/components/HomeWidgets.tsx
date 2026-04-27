@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeftRight, TrendingUp } from "lucide-react";
-import { FX_RATES, type Currency } from "@/lib/finance-data";
+import { FX_RATES, TIPS, type Currency } from "@/lib/finance-data";
 
 const FLAGS: Record<Currency, string> = { EUR: "🇪🇺", USD: "🇺🇸", GBP: "🇬🇧" };
 
@@ -95,10 +95,7 @@ export function TipCard() {
 
   // Pick tip based on day of year so it rotates daily
   const day = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
-  // We import lazily to avoid circular import issues
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const tips = require("@/lib/finance-data").TIPS as string[];
-  const tip = tips[day % tips.length];
+  const tip = TIPS[day % TIPS.length];
 
   const dismiss = () => {
     try {
