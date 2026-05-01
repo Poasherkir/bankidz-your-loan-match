@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Building2, Wallet, CalendarCheck, Settings } from "lucide-react";
 import { PageShell } from "@/components/BottomNav";
 import { CurrencyWidget, TipCard } from "@/components/HomeWidgets";
+import { ProfileDashboard } from "@/components/ProfileWidgets";
 import { BANKS, LOAN_TYPES } from "@/lib/banks";
 
 export const Route = createFileRoute("/")({
@@ -63,6 +64,11 @@ function HomePage() {
               <ArrowRight className="h-5 w-5 rotate-180 transition-transform group-hover:-translate-x-1" />
             </Link>
           </div>
+        </div>
+
+        {/* Personal financial profile */}
+        <div className="mb-4">
+          <ProfileDashboard />
         </div>
 
         {/* Tip of the day */}
