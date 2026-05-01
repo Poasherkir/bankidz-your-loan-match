@@ -10,10 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SimulatorRouteImport } from './routes/simulator'
+import { Route as ProfileSetupRouteImport } from './routes/profile-setup'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as GuideRouteImport } from './routes/guide'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as CompareRouteImport } from './routes/compare'
+import { Route as BuyNowRouteImport } from './routes/buy-now'
 import { Route as BranchesRouteImport } from './routes/branches'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as GuideCategoryRouteImport } from './routes/guide.$category'
@@ -22,6 +24,11 @@ import { Route as BankBankIdRouteImport } from './routes/bank.$bankId'
 const SimulatorRoute = SimulatorRouteImport.update({
   id: '/simulator',
   path: '/simulator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileSetupRoute = ProfileSetupRouteImport.update({
+  id: '/profile-setup',
+  path: '/profile-setup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OnboardingRoute = OnboardingRouteImport.update({
@@ -42,6 +49,11 @@ const DocumentsRoute = DocumentsRouteImport.update({
 const CompareRoute = CompareRouteImport.update({
   id: '/compare',
   path: '/compare',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuyNowRoute = BuyNowRouteImport.update({
+  id: '/buy-now',
+  path: '/buy-now',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BranchesRoute = BranchesRouteImport.update({
@@ -68,10 +80,12 @@ const BankBankIdRoute = BankBankIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/branches': typeof BranchesRoute
+  '/buy-now': typeof BuyNowRoute
   '/compare': typeof CompareRoute
   '/documents': typeof DocumentsRoute
   '/guide': typeof GuideRouteWithChildren
   '/onboarding': typeof OnboardingRoute
+  '/profile-setup': typeof ProfileSetupRoute
   '/simulator': typeof SimulatorRoute
   '/bank/$bankId': typeof BankBankIdRoute
   '/guide/$category': typeof GuideCategoryRoute
@@ -79,10 +93,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/branches': typeof BranchesRoute
+  '/buy-now': typeof BuyNowRoute
   '/compare': typeof CompareRoute
   '/documents': typeof DocumentsRoute
   '/guide': typeof GuideRouteWithChildren
   '/onboarding': typeof OnboardingRoute
+  '/profile-setup': typeof ProfileSetupRoute
   '/simulator': typeof SimulatorRoute
   '/bank/$bankId': typeof BankBankIdRoute
   '/guide/$category': typeof GuideCategoryRoute
@@ -91,10 +107,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/branches': typeof BranchesRoute
+  '/buy-now': typeof BuyNowRoute
   '/compare': typeof CompareRoute
   '/documents': typeof DocumentsRoute
   '/guide': typeof GuideRouteWithChildren
   '/onboarding': typeof OnboardingRoute
+  '/profile-setup': typeof ProfileSetupRoute
   '/simulator': typeof SimulatorRoute
   '/bank/$bankId': typeof BankBankIdRoute
   '/guide/$category': typeof GuideCategoryRoute
@@ -104,10 +122,12 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/branches'
+    | '/buy-now'
     | '/compare'
     | '/documents'
     | '/guide'
     | '/onboarding'
+    | '/profile-setup'
     | '/simulator'
     | '/bank/$bankId'
     | '/guide/$category'
@@ -115,10 +135,12 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/branches'
+    | '/buy-now'
     | '/compare'
     | '/documents'
     | '/guide'
     | '/onboarding'
+    | '/profile-setup'
     | '/simulator'
     | '/bank/$bankId'
     | '/guide/$category'
@@ -126,10 +148,12 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/branches'
+    | '/buy-now'
     | '/compare'
     | '/documents'
     | '/guide'
     | '/onboarding'
+    | '/profile-setup'
     | '/simulator'
     | '/bank/$bankId'
     | '/guide/$category'
@@ -138,10 +162,12 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BranchesRoute: typeof BranchesRoute
+  BuyNowRoute: typeof BuyNowRoute
   CompareRoute: typeof CompareRoute
   DocumentsRoute: typeof DocumentsRoute
   GuideRoute: typeof GuideRouteWithChildren
   OnboardingRoute: typeof OnboardingRoute
+  ProfileSetupRoute: typeof ProfileSetupRoute
   SimulatorRoute: typeof SimulatorRoute
   BankBankIdRoute: typeof BankBankIdRoute
 }
@@ -153,6 +179,13 @@ declare module '@tanstack/react-router' {
       path: '/simulator'
       fullPath: '/simulator'
       preLoaderRoute: typeof SimulatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile-setup': {
+      id: '/profile-setup'
+      path: '/profile-setup'
+      fullPath: '/profile-setup'
+      preLoaderRoute: typeof ProfileSetupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/onboarding': {
@@ -181,6 +214,13 @@ declare module '@tanstack/react-router' {
       path: '/compare'
       fullPath: '/compare'
       preLoaderRoute: typeof CompareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buy-now': {
+      id: '/buy-now'
+      path: '/buy-now'
+      fullPath: '/buy-now'
+      preLoaderRoute: typeof BuyNowRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/branches': {
@@ -227,10 +267,12 @@ const GuideRouteWithChildren = GuideRoute._addFileChildren(GuideRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BranchesRoute: BranchesRoute,
+  BuyNowRoute: BuyNowRoute,
   CompareRoute: CompareRoute,
   DocumentsRoute: DocumentsRoute,
   GuideRoute: GuideRouteWithChildren,
   OnboardingRoute: OnboardingRoute,
+  ProfileSetupRoute: ProfileSetupRoute,
   SimulatorRoute: SimulatorRoute,
   BankBankIdRoute: BankBankIdRoute,
 }
