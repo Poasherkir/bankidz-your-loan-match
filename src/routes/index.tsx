@@ -1,6 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { ArrowRight, Building2, Wallet, CalendarCheck, Settings } from "lucide-react";
 import { PageShell } from "@/components/BottomNav";
+import { WELCOME_KEY } from "./welcome";
 import { CurrencyWidget, TipCard } from "@/components/HomeWidgets";
 import { ProfileDashboard } from "@/components/ProfileWidgets";
 import { BANKS, LOAN_TYPES } from "@/lib/banks";
@@ -22,6 +24,12 @@ function StatCard({ icon: Icon, value, label }: { icon: React.ElementType; value
 }
 
 function HomePage() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (typeof window !== "undefined" && localStorage.getItem(WELCOME_KEY) !== "1") {
+      navigate({ to: "/welcome", replace: true });
+    }
+  }, [navigate]);
   return (
     <PageShell>
       <div className="px-5 pt-12 pb-6">

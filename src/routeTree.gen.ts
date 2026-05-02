@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WelcomeRouteImport } from './routes/welcome'
 import { Route as SimulatorRouteImport } from './routes/simulator'
 import { Route as ProfileSetupRouteImport } from './routes/profile-setup'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
@@ -21,6 +22,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as GuideCategoryRouteImport } from './routes/guide.$category'
 import { Route as BankBankIdRouteImport } from './routes/bank.$bankId'
 
+const WelcomeRoute = WelcomeRouteImport.update({
+  id: '/welcome',
+  path: '/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SimulatorRoute = SimulatorRouteImport.update({
   id: '/simulator',
   path: '/simulator',
@@ -87,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof OnboardingRoute
   '/profile-setup': typeof ProfileSetupRoute
   '/simulator': typeof SimulatorRoute
+  '/welcome': typeof WelcomeRoute
   '/bank/$bankId': typeof BankBankIdRoute
   '/guide/$category': typeof GuideCategoryRoute
 }
@@ -100,6 +107,7 @@ export interface FileRoutesByTo {
   '/onboarding': typeof OnboardingRoute
   '/profile-setup': typeof ProfileSetupRoute
   '/simulator': typeof SimulatorRoute
+  '/welcome': typeof WelcomeRoute
   '/bank/$bankId': typeof BankBankIdRoute
   '/guide/$category': typeof GuideCategoryRoute
 }
@@ -114,6 +122,7 @@ export interface FileRoutesById {
   '/onboarding': typeof OnboardingRoute
   '/profile-setup': typeof ProfileSetupRoute
   '/simulator': typeof SimulatorRoute
+  '/welcome': typeof WelcomeRoute
   '/bank/$bankId': typeof BankBankIdRoute
   '/guide/$category': typeof GuideCategoryRoute
 }
@@ -129,6 +138,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/profile-setup'
     | '/simulator'
+    | '/welcome'
     | '/bank/$bankId'
     | '/guide/$category'
   fileRoutesByTo: FileRoutesByTo
@@ -142,6 +152,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/profile-setup'
     | '/simulator'
+    | '/welcome'
     | '/bank/$bankId'
     | '/guide/$category'
   id:
@@ -155,6 +166,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/profile-setup'
     | '/simulator'
+    | '/welcome'
     | '/bank/$bankId'
     | '/guide/$category'
   fileRoutesById: FileRoutesById
@@ -169,11 +181,19 @@ export interface RootRouteChildren {
   OnboardingRoute: typeof OnboardingRoute
   ProfileSetupRoute: typeof ProfileSetupRoute
   SimulatorRoute: typeof SimulatorRoute
+  WelcomeRoute: typeof WelcomeRoute
   BankBankIdRoute: typeof BankBankIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/welcome': {
+      id: '/welcome'
+      path: '/welcome'
+      fullPath: '/welcome'
+      preLoaderRoute: typeof WelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/simulator': {
       id: '/simulator'
       path: '/simulator'
@@ -274,6 +294,7 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingRoute: OnboardingRoute,
   ProfileSetupRoute: ProfileSetupRoute,
   SimulatorRoute: SimulatorRoute,
+  WelcomeRoute: WelcomeRoute,
   BankBankIdRoute: BankBankIdRoute,
 }
 export const routeTree = rootRouteImport
