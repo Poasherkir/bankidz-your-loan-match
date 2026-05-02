@@ -14,6 +14,7 @@ import { Route as SimulatorRouteImport } from './routes/simulator'
 import { Route as ProfileSetupRouteImport } from './routes/profile-setup'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as GuideRouteImport } from './routes/guide'
+import { Route as EarlyPayoffRouteImport } from './routes/early-payoff'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as BuyNowRouteImport } from './routes/buy-now'
@@ -45,6 +46,11 @@ const OnboardingRoute = OnboardingRouteImport.update({
 const GuideRoute = GuideRouteImport.update({
   id: '/guide',
   path: '/guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EarlyPayoffRoute = EarlyPayoffRouteImport.update({
+  id: '/early-payoff',
+  path: '/early-payoff',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DocumentsRoute = DocumentsRouteImport.update({
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/buy-now': typeof BuyNowRoute
   '/compare': typeof CompareRoute
   '/documents': typeof DocumentsRoute
+  '/early-payoff': typeof EarlyPayoffRoute
   '/guide': typeof GuideRouteWithChildren
   '/onboarding': typeof OnboardingRoute
   '/profile-setup': typeof ProfileSetupRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByTo {
   '/buy-now': typeof BuyNowRoute
   '/compare': typeof CompareRoute
   '/documents': typeof DocumentsRoute
+  '/early-payoff': typeof EarlyPayoffRoute
   '/guide': typeof GuideRouteWithChildren
   '/onboarding': typeof OnboardingRoute
   '/profile-setup': typeof ProfileSetupRoute
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/buy-now': typeof BuyNowRoute
   '/compare': typeof CompareRoute
   '/documents': typeof DocumentsRoute
+  '/early-payoff': typeof EarlyPayoffRoute
   '/guide': typeof GuideRouteWithChildren
   '/onboarding': typeof OnboardingRoute
   '/profile-setup': typeof ProfileSetupRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/buy-now'
     | '/compare'
     | '/documents'
+    | '/early-payoff'
     | '/guide'
     | '/onboarding'
     | '/profile-setup'
@@ -148,6 +158,7 @@ export interface FileRouteTypes {
     | '/buy-now'
     | '/compare'
     | '/documents'
+    | '/early-payoff'
     | '/guide'
     | '/onboarding'
     | '/profile-setup'
@@ -162,6 +173,7 @@ export interface FileRouteTypes {
     | '/buy-now'
     | '/compare'
     | '/documents'
+    | '/early-payoff'
     | '/guide'
     | '/onboarding'
     | '/profile-setup'
@@ -177,6 +189,7 @@ export interface RootRouteChildren {
   BuyNowRoute: typeof BuyNowRoute
   CompareRoute: typeof CompareRoute
   DocumentsRoute: typeof DocumentsRoute
+  EarlyPayoffRoute: typeof EarlyPayoffRoute
   GuideRoute: typeof GuideRouteWithChildren
   OnboardingRoute: typeof OnboardingRoute
   ProfileSetupRoute: typeof ProfileSetupRoute
@@ -220,6 +233,13 @@ declare module '@tanstack/react-router' {
       path: '/guide'
       fullPath: '/guide'
       preLoaderRoute: typeof GuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/early-payoff': {
+      id: '/early-payoff'
+      path: '/early-payoff'
+      fullPath: '/early-payoff'
+      preLoaderRoute: typeof EarlyPayoffRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/documents': {
@@ -290,6 +310,7 @@ const rootRouteChildren: RootRouteChildren = {
   BuyNowRoute: BuyNowRoute,
   CompareRoute: CompareRoute,
   DocumentsRoute: DocumentsRoute,
+  EarlyPayoffRoute: EarlyPayoffRoute,
   GuideRoute: GuideRouteWithChildren,
   OnboardingRoute: OnboardingRoute,
   ProfileSetupRoute: ProfileSetupRoute,
