@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ChevronDown, ChevronLeft, Sparkles } from "lucide-react";
+import { ChevronDown, ChevronLeft, Sparkles, Scale } from "lucide-react";
 import { PageShell } from "@/components/BottomNav";
 import { GUIDE_CATEGORIES } from "@/lib/guide";
 import { FAQ } from "@/lib/finance-data";
