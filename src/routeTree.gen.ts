@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WelcomeRouteImport } from './routes/welcome'
 import { Route as SimulatorRouteImport } from './routes/simulator'
+import { Route as RentVsBuyRouteImport } from './routes/rent-vs-buy'
 import { Route as ProfileSetupRouteImport } from './routes/profile-setup'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as GuideRouteImport } from './routes/guide'
@@ -31,6 +32,11 @@ const WelcomeRoute = WelcomeRouteImport.update({
 const SimulatorRoute = SimulatorRouteImport.update({
   id: '/simulator',
   path: '/simulator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RentVsBuyRoute = RentVsBuyRouteImport.update({
+  id: '/rent-vs-buy',
+  path: '/rent-vs-buy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfileSetupRoute = ProfileSetupRouteImport.update({
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/guide': typeof GuideRouteWithChildren
   '/onboarding': typeof OnboardingRoute
   '/profile-setup': typeof ProfileSetupRoute
+  '/rent-vs-buy': typeof RentVsBuyRoute
   '/simulator': typeof SimulatorRoute
   '/welcome': typeof WelcomeRoute
   '/bank/$bankId': typeof BankBankIdRoute
@@ -114,6 +121,7 @@ export interface FileRoutesByTo {
   '/guide': typeof GuideRouteWithChildren
   '/onboarding': typeof OnboardingRoute
   '/profile-setup': typeof ProfileSetupRoute
+  '/rent-vs-buy': typeof RentVsBuyRoute
   '/simulator': typeof SimulatorRoute
   '/welcome': typeof WelcomeRoute
   '/bank/$bankId': typeof BankBankIdRoute
@@ -130,6 +138,7 @@ export interface FileRoutesById {
   '/guide': typeof GuideRouteWithChildren
   '/onboarding': typeof OnboardingRoute
   '/profile-setup': typeof ProfileSetupRoute
+  '/rent-vs-buy': typeof RentVsBuyRoute
   '/simulator': typeof SimulatorRoute
   '/welcome': typeof WelcomeRoute
   '/bank/$bankId': typeof BankBankIdRoute
@@ -147,6 +156,7 @@ export interface FileRouteTypes {
     | '/guide'
     | '/onboarding'
     | '/profile-setup'
+    | '/rent-vs-buy'
     | '/simulator'
     | '/welcome'
     | '/bank/$bankId'
@@ -162,6 +172,7 @@ export interface FileRouteTypes {
     | '/guide'
     | '/onboarding'
     | '/profile-setup'
+    | '/rent-vs-buy'
     | '/simulator'
     | '/welcome'
     | '/bank/$bankId'
@@ -177,6 +188,7 @@ export interface FileRouteTypes {
     | '/guide'
     | '/onboarding'
     | '/profile-setup'
+    | '/rent-vs-buy'
     | '/simulator'
     | '/welcome'
     | '/bank/$bankId'
@@ -193,6 +205,7 @@ export interface RootRouteChildren {
   GuideRoute: typeof GuideRouteWithChildren
   OnboardingRoute: typeof OnboardingRoute
   ProfileSetupRoute: typeof ProfileSetupRoute
+  RentVsBuyRoute: typeof RentVsBuyRoute
   SimulatorRoute: typeof SimulatorRoute
   WelcomeRoute: typeof WelcomeRoute
   BankBankIdRoute: typeof BankBankIdRoute
@@ -212,6 +225,13 @@ declare module '@tanstack/react-router' {
       path: '/simulator'
       fullPath: '/simulator'
       preLoaderRoute: typeof SimulatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rent-vs-buy': {
+      id: '/rent-vs-buy'
+      path: '/rent-vs-buy'
+      fullPath: '/rent-vs-buy'
+      preLoaderRoute: typeof RentVsBuyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile-setup': {
@@ -314,6 +334,7 @@ const rootRouteChildren: RootRouteChildren = {
   GuideRoute: GuideRouteWithChildren,
   OnboardingRoute: OnboardingRoute,
   ProfileSetupRoute: ProfileSetupRoute,
+  RentVsBuyRoute: RentVsBuyRoute,
   SimulatorRoute: SimulatorRoute,
   WelcomeRoute: WelcomeRoute,
   BankBankIdRoute: BankBankIdRoute,

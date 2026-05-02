@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ChevronDown, ChevronLeft, Sparkles } from "lucide-react";
+import { ChevronDown, ChevronLeft, Sparkles, Scale } from "lucide-react";
 import { PageShell } from "@/components/BottomNav";
 import { GUIDE_CATEGORIES } from "@/lib/guide";
 import { FAQ } from "@/lib/finance-data";
@@ -35,6 +35,22 @@ function GuideIndex() {
               <div className="text-[11px] opacity-90 leading-tight">احسب كم ستوفّر بسداد جزء من قرضك مبكرًا</div>
             </div>
             <ChevronLeft className="h-5 w-5 opacity-80" />
+          </div>
+        </Link>
+
+        <Link
+          to="/rent-vs-buy"
+          className="block glass rounded-2xl p-4 mb-4 active:scale-[0.98] transition-transform border border-gold/20"
+        >
+          <div className="flex items-center gap-3">
+            <div className="h-11 w-11 rounded-xl bg-gold-soft flex items-center justify-center shrink-0">
+              <Scale className="h-5 w-5 text-gold" />
+            </div>
+            <div className="flex-1">
+              <div className="font-display font-extrabold text-sm">إيجار أم قرض؟</div>
+              <div className="text-[11px] text-muted-foreground leading-tight">قارن تكلفة الإيجار مع شراء عقار بقرض</div>
+            </div>
+            <ChevronLeft className="h-5 w-5 text-muted-foreground" />
           </div>
         </Link>
 

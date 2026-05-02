@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeftRight, TrendingUp } from "lucide-react";
-import { FX_RATES, TIPS, type Currency } from "@/lib/finance-data";
+import { FX_RATES, FX_SOURCE, TIPS, type Currency } from "@/lib/finance-data";
 
 const FLAGS: Record<Currency, string> = { EUR: "🇪🇺", USD: "🇺🇸", GBP: "🇬🇧" };
 
@@ -19,13 +19,14 @@ export function CurrencyWidget() {
 
   return (
     <div className="glass rounded-2xl p-4">
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between mb-1">
         <h2 className="font-display font-bold text-sm flex items-center gap-2">
           <TrendingUp className="h-4 w-4 text-gold" />
           أسعار الصرف
         </h2>
         <span className="text-[10px] text-muted-foreground">آخر تحديث: اليوم</span>
       </div>
+      <div className="text-[10px] text-muted-foreground mb-3">{FX_SOURCE}</div>
 
       <div className="grid grid-cols-3 gap-2 mb-4">
         {(Object.keys(FX_RATES) as Currency[]).map((c) => (

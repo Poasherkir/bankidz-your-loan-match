@@ -1,9 +1,12 @@
-// Hardcoded exchange rates (DZD per 1 unit of foreign currency)
+// Black-market (Square Port-Saïd) exchange rates — DZD per 1 unit
+// These reflect the parallel market, not the official Bank of Algeria rate.
 export const FX_RATES = {
-  EUR: 148.5,
-  USD: 134.2,
-  GBP: 173.8,
+  EUR: 262,
+  USD: 240,
+  GBP: 305,
 } as const;
+
+export const FX_SOURCE = "السوق الموازية (سكوير) — أسعار تقريبية";
 
 export type Currency = keyof typeof FX_RATES;
 
