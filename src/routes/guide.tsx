@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ChevronDown, ChevronLeft } from "lucide-react";
+import { ChevronDown, ChevronLeft, Sparkles } from "lucide-react";
 import { PageShell } from "@/components/BottomNav";
 import { GUIDE_CATEGORIES } from "@/lib/guide";
 import { FAQ } from "@/lib/finance-data";
@@ -20,6 +20,24 @@ function GuideIndex() {
       </div>
 
       <div className="px-5">
+        {/* Featured tool */}
+        <Link
+          to="/early-payoff"
+          className="block relative overflow-hidden rounded-2xl p-4 mb-4 gradient-gold text-gold-foreground shadow-[var(--shadow-gold)] active:scale-[0.98] transition-transform"
+        >
+          <div className="absolute -top-8 -left-8 h-32 w-32 rounded-full bg-white/20 blur-2xl" />
+          <div className="relative flex items-center gap-3">
+            <div className="h-11 w-11 rounded-xl bg-black/15 flex items-center justify-center shrink-0">
+              <Sparkles className="h-5 w-5" />
+            </div>
+            <div className="flex-1">
+              <div className="font-display font-extrabold text-sm">حاسبة السداد المبكر</div>
+              <div className="text-[11px] opacity-90 leading-tight">احسب كم ستوفّر بسداد جزء من قرضك مبكرًا</div>
+            </div>
+            <ChevronLeft className="h-5 w-5 opacity-80" />
+          </div>
+        </Link>
+
         <div className="grid grid-cols-2 gap-3">
           {GUIDE_CATEGORIES.map((c) => (
             <Link
