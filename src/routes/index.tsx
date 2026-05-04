@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { ArrowRight, Building2, Wallet, CalendarCheck, Settings } from "lucide-react";
+import { ArrowRight, Building2, Wallet, CalendarCheck, Settings, HeartPulse, ChevronLeft } from "lucide-react";
 import { PageShell } from "@/components/BottomNav";
 import { WELCOME_KEY } from "./welcome";
 import { CurrencyWidget, TipCard } from "@/components/HomeWidgets";
@@ -78,6 +78,25 @@ function HomePage() {
         <div className="mb-4">
           <ProfileDashboard />
         </div>
+
+        {/* Financial health checker entry */}
+        <Link
+          to="/health-check"
+          className="block rounded-2xl p-4 glass border border-gold/30 mb-4 active:scale-[0.99] transition-transform"
+        >
+          <div className="flex items-center gap-3">
+            <div className="h-11 w-11 rounded-full bg-gold-soft flex items-center justify-center">
+              <HeartPulse className="h-5 w-5 text-gold" />
+            </div>
+            <div className="flex-1">
+              <div className="font-display font-bold text-sm">مؤشر صحتك المالية</div>
+              <div className="text-[11px] text-muted-foreground mt-0.5">
+                قيّم وضعك في 30 ثانية واحصل على نصائح مخصّصة
+              </div>
+            </div>
+            <ChevronLeft className="h-5 w-5 text-gold" />
+          </div>
+        </Link>
 
         {/* Tip of the day */}
         <div className="mb-4">

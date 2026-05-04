@@ -14,6 +14,7 @@ import { Route as SimulatorRouteImport } from './routes/simulator'
 import { Route as RentVsBuyRouteImport } from './routes/rent-vs-buy'
 import { Route as ProfileSetupRouteImport } from './routes/profile-setup'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as HealthCheckRouteImport } from './routes/health-check'
 import { Route as GuideRouteImport } from './routes/guide'
 import { Route as EarlyPayoffRouteImport } from './routes/early-payoff'
 import { Route as DocumentsRouteImport } from './routes/documents'
@@ -47,6 +48,11 @@ const ProfileSetupRoute = ProfileSetupRouteImport.update({
 const OnboardingRoute = OnboardingRouteImport.update({
   id: '/onboarding',
   path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthCheckRoute = HealthCheckRouteImport.update({
+  id: '/health-check',
+  path: '/health-check',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GuideRoute = GuideRouteImport.update({
@@ -103,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/documents': typeof DocumentsRoute
   '/early-payoff': typeof EarlyPayoffRoute
   '/guide': typeof GuideRouteWithChildren
+  '/health-check': typeof HealthCheckRoute
   '/onboarding': typeof OnboardingRoute
   '/profile-setup': typeof ProfileSetupRoute
   '/rent-vs-buy': typeof RentVsBuyRoute
@@ -119,6 +126,7 @@ export interface FileRoutesByTo {
   '/documents': typeof DocumentsRoute
   '/early-payoff': typeof EarlyPayoffRoute
   '/guide': typeof GuideRouteWithChildren
+  '/health-check': typeof HealthCheckRoute
   '/onboarding': typeof OnboardingRoute
   '/profile-setup': typeof ProfileSetupRoute
   '/rent-vs-buy': typeof RentVsBuyRoute
@@ -136,6 +144,7 @@ export interface FileRoutesById {
   '/documents': typeof DocumentsRoute
   '/early-payoff': typeof EarlyPayoffRoute
   '/guide': typeof GuideRouteWithChildren
+  '/health-check': typeof HealthCheckRoute
   '/onboarding': typeof OnboardingRoute
   '/profile-setup': typeof ProfileSetupRoute
   '/rent-vs-buy': typeof RentVsBuyRoute
@@ -154,6 +163,7 @@ export interface FileRouteTypes {
     | '/documents'
     | '/early-payoff'
     | '/guide'
+    | '/health-check'
     | '/onboarding'
     | '/profile-setup'
     | '/rent-vs-buy'
@@ -170,6 +180,7 @@ export interface FileRouteTypes {
     | '/documents'
     | '/early-payoff'
     | '/guide'
+    | '/health-check'
     | '/onboarding'
     | '/profile-setup'
     | '/rent-vs-buy'
@@ -186,6 +197,7 @@ export interface FileRouteTypes {
     | '/documents'
     | '/early-payoff'
     | '/guide'
+    | '/health-check'
     | '/onboarding'
     | '/profile-setup'
     | '/rent-vs-buy'
@@ -203,6 +215,7 @@ export interface RootRouteChildren {
   DocumentsRoute: typeof DocumentsRoute
   EarlyPayoffRoute: typeof EarlyPayoffRoute
   GuideRoute: typeof GuideRouteWithChildren
+  HealthCheckRoute: typeof HealthCheckRoute
   OnboardingRoute: typeof OnboardingRoute
   ProfileSetupRoute: typeof ProfileSetupRoute
   RentVsBuyRoute: typeof RentVsBuyRoute
@@ -246,6 +259,13 @@ declare module '@tanstack/react-router' {
       path: '/onboarding'
       fullPath: '/onboarding'
       preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health-check': {
+      id: '/health-check'
+      path: '/health-check'
+      fullPath: '/health-check'
+      preLoaderRoute: typeof HealthCheckRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guide': {
@@ -332,6 +352,7 @@ const rootRouteChildren: RootRouteChildren = {
   DocumentsRoute: DocumentsRoute,
   EarlyPayoffRoute: EarlyPayoffRoute,
   GuideRoute: GuideRouteWithChildren,
+  HealthCheckRoute: HealthCheckRoute,
   OnboardingRoute: OnboardingRoute,
   ProfileSetupRoute: ProfileSetupRoute,
   RentVsBuyRoute: RentVsBuyRoute,
