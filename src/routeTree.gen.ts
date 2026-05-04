@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WelcomeRouteImport } from './routes/welcome'
+import { Route as WalletRouteImport } from './routes/wallet'
 import { Route as SimulatorRouteImport } from './routes/simulator'
 import { Route as RentVsBuyRouteImport } from './routes/rent-vs-buy'
 import { Route as ProfileSetupRouteImport } from './routes/profile-setup'
@@ -29,6 +30,11 @@ import { Route as BankBankIdRouteImport } from './routes/bank.$bankId'
 const WelcomeRoute = WelcomeRouteImport.update({
   id: '/welcome',
   path: '/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WalletRoute = WalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SimulatorRoute = SimulatorRouteImport.update({
@@ -121,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/profile-setup': typeof ProfileSetupRoute
   '/rent-vs-buy': typeof RentVsBuyRoute
   '/simulator': typeof SimulatorRoute
+  '/wallet': typeof WalletRoute
   '/welcome': typeof WelcomeRoute
   '/bank/$bankId': typeof BankBankIdRoute
   '/guide/$category': typeof GuideCategoryRoute
@@ -139,6 +146,7 @@ export interface FileRoutesByTo {
   '/profile-setup': typeof ProfileSetupRoute
   '/rent-vs-buy': typeof RentVsBuyRoute
   '/simulator': typeof SimulatorRoute
+  '/wallet': typeof WalletRoute
   '/welcome': typeof WelcomeRoute
   '/bank/$bankId': typeof BankBankIdRoute
   '/guide/$category': typeof GuideCategoryRoute
@@ -158,6 +166,7 @@ export interface FileRoutesById {
   '/profile-setup': typeof ProfileSetupRoute
   '/rent-vs-buy': typeof RentVsBuyRoute
   '/simulator': typeof SimulatorRoute
+  '/wallet': typeof WalletRoute
   '/welcome': typeof WelcomeRoute
   '/bank/$bankId': typeof BankBankIdRoute
   '/guide/$category': typeof GuideCategoryRoute
@@ -178,6 +187,7 @@ export interface FileRouteTypes {
     | '/profile-setup'
     | '/rent-vs-buy'
     | '/simulator'
+    | '/wallet'
     | '/welcome'
     | '/bank/$bankId'
     | '/guide/$category'
@@ -196,6 +206,7 @@ export interface FileRouteTypes {
     | '/profile-setup'
     | '/rent-vs-buy'
     | '/simulator'
+    | '/wallet'
     | '/welcome'
     | '/bank/$bankId'
     | '/guide/$category'
@@ -214,6 +225,7 @@ export interface FileRouteTypes {
     | '/profile-setup'
     | '/rent-vs-buy'
     | '/simulator'
+    | '/wallet'
     | '/welcome'
     | '/bank/$bankId'
     | '/guide/$category'
@@ -233,6 +245,7 @@ export interface RootRouteChildren {
   ProfileSetupRoute: typeof ProfileSetupRoute
   RentVsBuyRoute: typeof RentVsBuyRoute
   SimulatorRoute: typeof SimulatorRoute
+  WalletRoute: typeof WalletRoute
   WelcomeRoute: typeof WelcomeRoute
   BankBankIdRoute: typeof BankBankIdRoute
 }
@@ -244,6 +257,13 @@ declare module '@tanstack/react-router' {
       path: '/welcome'
       fullPath: '/welcome'
       preLoaderRoute: typeof WelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wallet': {
+      id: '/wallet'
+      path: '/wallet'
+      fullPath: '/wallet'
+      preLoaderRoute: typeof WalletRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/simulator': {
@@ -378,6 +398,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileSetupRoute: ProfileSetupRoute,
   RentVsBuyRoute: RentVsBuyRoute,
   SimulatorRoute: SimulatorRoute,
+  WalletRoute: WalletRoute,
   WelcomeRoute: WelcomeRoute,
   BankBankIdRoute: BankBankIdRoute,
 }
