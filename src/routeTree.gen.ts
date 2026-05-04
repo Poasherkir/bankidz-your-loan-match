@@ -16,6 +16,7 @@ import { Route as ProfileSetupRouteImport } from './routes/profile-setup'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as HealthCheckRouteImport } from './routes/health-check'
 import { Route as GuideRouteImport } from './routes/guide'
+import { Route as EligibilityQuizRouteImport } from './routes/eligibility-quiz'
 import { Route as EarlyPayoffRouteImport } from './routes/early-payoff'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as CompareRouteImport } from './routes/compare'
@@ -58,6 +59,11 @@ const HealthCheckRoute = HealthCheckRouteImport.update({
 const GuideRoute = GuideRouteImport.update({
   id: '/guide',
   path: '/guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EligibilityQuizRoute = EligibilityQuizRouteImport.update({
+  id: '/eligibility-quiz',
+  path: '/eligibility-quiz',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EarlyPayoffRoute = EarlyPayoffRouteImport.update({
@@ -108,6 +114,7 @@ export interface FileRoutesByFullPath {
   '/compare': typeof CompareRoute
   '/documents': typeof DocumentsRoute
   '/early-payoff': typeof EarlyPayoffRoute
+  '/eligibility-quiz': typeof EligibilityQuizRoute
   '/guide': typeof GuideRouteWithChildren
   '/health-check': typeof HealthCheckRoute
   '/onboarding': typeof OnboardingRoute
@@ -125,6 +132,7 @@ export interface FileRoutesByTo {
   '/compare': typeof CompareRoute
   '/documents': typeof DocumentsRoute
   '/early-payoff': typeof EarlyPayoffRoute
+  '/eligibility-quiz': typeof EligibilityQuizRoute
   '/guide': typeof GuideRouteWithChildren
   '/health-check': typeof HealthCheckRoute
   '/onboarding': typeof OnboardingRoute
@@ -143,6 +151,7 @@ export interface FileRoutesById {
   '/compare': typeof CompareRoute
   '/documents': typeof DocumentsRoute
   '/early-payoff': typeof EarlyPayoffRoute
+  '/eligibility-quiz': typeof EligibilityQuizRoute
   '/guide': typeof GuideRouteWithChildren
   '/health-check': typeof HealthCheckRoute
   '/onboarding': typeof OnboardingRoute
@@ -162,6 +171,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/documents'
     | '/early-payoff'
+    | '/eligibility-quiz'
     | '/guide'
     | '/health-check'
     | '/onboarding'
@@ -179,6 +189,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/documents'
     | '/early-payoff'
+    | '/eligibility-quiz'
     | '/guide'
     | '/health-check'
     | '/onboarding'
@@ -196,6 +207,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/documents'
     | '/early-payoff'
+    | '/eligibility-quiz'
     | '/guide'
     | '/health-check'
     | '/onboarding'
@@ -214,6 +226,7 @@ export interface RootRouteChildren {
   CompareRoute: typeof CompareRoute
   DocumentsRoute: typeof DocumentsRoute
   EarlyPayoffRoute: typeof EarlyPayoffRoute
+  EligibilityQuizRoute: typeof EligibilityQuizRoute
   GuideRoute: typeof GuideRouteWithChildren
   HealthCheckRoute: typeof HealthCheckRoute
   OnboardingRoute: typeof OnboardingRoute
@@ -273,6 +286,13 @@ declare module '@tanstack/react-router' {
       path: '/guide'
       fullPath: '/guide'
       preLoaderRoute: typeof GuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/eligibility-quiz': {
+      id: '/eligibility-quiz'
+      path: '/eligibility-quiz'
+      fullPath: '/eligibility-quiz'
+      preLoaderRoute: typeof EligibilityQuizRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/early-payoff': {
@@ -351,6 +371,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompareRoute: CompareRoute,
   DocumentsRoute: DocumentsRoute,
   EarlyPayoffRoute: EarlyPayoffRoute,
+  EligibilityQuizRoute: EligibilityQuizRoute,
   GuideRoute: GuideRouteWithChildren,
   HealthCheckRoute: HealthCheckRoute,
   OnboardingRoute: OnboardingRoute,
